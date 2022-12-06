@@ -15,12 +15,11 @@ def read_contacs(conn):
     rows = cur.fetchall()
     cur.close()
     return rows
-def add_contacts(conn, name, lastname):
+def add_contacts(conn,id, first_name, last_name,title,organization):
     cur = conn.cursor()
-    cur.execute(f"INSERT INTO public.contacts VALUES ('{name}', '{lastname}');")
+    cur.execute(f"INSERT INTO public.contacts VALUES ('{id}','{first_name}', '{last_name}','{title}','{organization}');")
     cur.execute("COMMIT;")
     cur.close()
-    print(f"{name} added!")
 def delete_contacts(conn, name):
     cur = conn.cursor()
     cur.execute(f"DELETE FROM public.contacts WHERE name = '{name}';")
@@ -39,12 +38,15 @@ while True: ## REPL - Read Execute Print Loop/Read Execute Program Loop
     if cmd == "LIST":
         print(read_contacs(dbconn))
     elif cmd == "ADD":
-        name = input("  Name: ")
-        phone = input("  Phone: ")
-        add_contacts(dbconn, name, lastname)
+        id= input('Enter Id number after 7 ')
+        first_name = input("  Name: ")
+        last_name = input("  Lastname: ")
+        title = input('Your Title? ')
+        organization = input('Where do your work? ')
+        add_contacts(dbconn,id, first_name, last_name,title,organization)
     elif cmd == "DELETE":
-        name = input("  Name: ")
-        delete_contacts(dbconn, name)
+        id = input("  id: ")
+        delete_contacts(dbconn, id)
     elif cmd == "QUIT":
         save_contacts(dbconn)
         print("Committing all changes to the database and quitting! Good bye!")
