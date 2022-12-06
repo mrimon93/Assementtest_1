@@ -20,11 +20,11 @@ def add_contacts(conn,id, first_name, last_name,title,organization):
     cur.execute(f"INSERT INTO public.contacts VALUES ('{id}','{first_name}', '{last_name}','{title}','{organization}');")
     cur.execute("COMMIT;")
     cur.close()
-def delete_contacts(conn, name):
+def delete_contacts(conn, id):
     cur = conn.cursor()
-    cur.execute(f"DELETE FROM public.contacts WHERE name = '{name}';")
+    cur.execute(f"DELETE FROM public.contacts WHERE id = '{id}';")
+    cur.execute("COMMIT;")
     cur.close()
-    print(f"{name} deleted!")
 def save_contacts(conn):
     cur = conn.cursor()
     try:
@@ -32,8 +32,10 @@ def save_contacts(conn):
     except:
         print("No changes!")
     cur.close()
-while True: ## REPL - Read Execute Print Loop/Read Execute Program Loop
-            ##https://codewith.mu/en/tutorials/1.1/repl
+
+
+
+while True:
     cmd = input("Command: ")
     if cmd == "LIST":
         print(read_contacs(dbconn))
