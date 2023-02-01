@@ -8,7 +8,7 @@ dbconn = psycopg2.connect(
     port="5432",
     database="assessmentdb",
     user="postgres",
-    password="Monasogsql@12")
+    password="**********")
 def read_contacs(conn):
     cur = conn.cursor()
     cur.execute("SELECT * FROM public.contacts;")
